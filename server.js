@@ -1,3 +1,5 @@
+
+server_js_CORS_FIXED.txt
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -14,9 +16,12 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(helmet());
+// CORS configuration - allow all origins for Chrome extension
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*',
-  credentials: true
+  origin: true, // Allow all origins
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
